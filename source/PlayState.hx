@@ -4012,6 +4012,8 @@ class PlayState extends MusicBeatState
 				}
 				notesHitArray.sort(sortByShit);
 
+				var alreadyHit:Array<Int> = new Array<Int>();
+
 				if (perfectMode)
 					goodNoteHit(notesHitArray[0]);
 				else if (notesHitArray.length > 0) {
@@ -4027,7 +4029,8 @@ class PlayState extends MusicBeatState
 					}
 					for (i in 0...notesHitArray.length) {
 						var daNote = notesHitArray[i];
-						if(controlArray[daNote.noteData]) {
+						if(controlArray[daNote.noteData] && !alreadyHit.contains(daNote.noteData)) {
+							alreadyHit.push(daNote.noteData);
 							goodNoteHit(daNote);
 							if(ClientPrefs.ghostTapping)
 								boyfriend.holdTimer = 0;
